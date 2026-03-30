@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RiverBillowShop - 代购中国商品</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto}
+    body{background:#f7f7f7;color:#222;padding:20px}
+    /* 语言切换按钮样式 */
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .lang-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      background: white;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .lang-btn.active {
+      background: #111;
+      color: white;
+      border-color: #111;
+    }
+    header{text-align:center;margin-bottom:30px;padding-top:20px}
+    header h1{font-size:24px;margin-bottom:8px}
+    header p{color:#555;margin-bottom:10px}
+    /* 联系方式区域样式 */
+    .contact-section {
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+      padding: 16px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .contact-section h3 {
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      color: #555;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .container{max-width:800px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+    .card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+    .card img{width:100%;height:180px;object-fit:cover}
+    .info{padding:16px}
+    .info h3{font-size:16px;margin-bottom:6px}
+    .info .price{font-size:18px;font-weight:700;color:#c72a47;margin-bottom:10px}
+    .btn{display:block;background:#111;color:white;text-align:center;padding:10px;border-radius:8px;text-decoration:none;font-weight:600;
+         border: none; cursor: pointer; font-size: inherit; width: 100%;}
+    .btn:hover{background:#333}
+    footer{text-align:center;margin-top:40px;color:#888;font-size:14px;padding-bottom:20px}
+    /* 隐藏元素样式 */
+    .cn, .en {
+      display: none;
+    }
+    .show-cn .cn {
+      display: block;
+    }
+    .show-en .en {
+      display: block;
+    }
+  </style>
+</head>
+<body class="show-en">
+  <!-- 语言切换按钮 -->
+  <div class="lang-switch">
+    <button class="lang-btn en-btn active" onclick="switchLang('en')">English</button>
+    <button class="lang-btn cn-btn" onclick="switchLang('cn')">中文</button>
+  </div>
+
+  <header>
+    <h1 class="en">RiverBillowShop</h1>
+    <h1 class="cn">江涛商城</h1>
+    
+    <p class="en">Simple & Secure Checkout</p>
+    <p class="cn">简单安全的结算流程</p>
+    
+    <p class="en">The website is under maintenance.</p>
+    <p class="cn">网站正在试运行维护中</p>
+    
+    <h2 class="en">This website is mainly designed to facilitate foreign buyers in purchasing Chinese goods and to offer purchasing agency services.</h2>
+    <h2 class="cn">本网站主要用于方便海外用户购买中国商品，提供专业的代购服务</h2>
+  </header>
+
+  <!-- 联系方式区域（预留） -->
+  <div class="contact-section">
+    <h3 class="en">Contact Us / 联系方式</h3>
+    <h3 class="cn">联系方式 / Contact Us</h3>
+    <div class="contact-info">
+      <div class="contact-item">
+        <span class="en">Email:</span>
+        <span class="cn">邮箱:</span>
+        <span>XXX</span>
+      </div>
+      <div class="contact-item">
+        <span class="en">WhatsApp:</span>
+        <span class="cn">微信/WhatsApp:</span>
+        <span>XXX</span>
+      </div>
+      <div class="contact-item">
+        <span class="en">WeChat:</span>
+        <span class="cn">公众号:</span>
+        <span>XXX</span>
+      </div>
+      <!-- 可扩展更多联系方式 -->
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- 商品1 -->
+    <div class="card">
+      <img src="https://picsum.photos/600/400?random=1" alt="Stress Relief Ball">
+      <div class="info">
+        <h3 class="en">Stress Relief Ball</h3>
+        <h3 class="cn">减压球</h3>
+        <div class="price">$12.99</div>
+        <button class="btn en">Buy Now</button>
+        <button class="btn cn">立即购买</button>
+      </div>
+    </div>
+
+    <!-- 商品2 -->
+    <div class="card">
+      <img src="https://picsum.photos/600/400?random=2" alt="Aroma Stone Set">
+      <div class="info">
+        <h3 class="en">Aroma Stone Set</h3>
+        <h3 class="cn">香薰石套装</h3>
+        <div class="price">$18.99</div>
+        <button class="btn en">Buy Now</button>
+        <button class="btn cn">立即购买</button>
+      </div>
+    </div>
+
+    <!-- 商品3 -->
+    <div class="card">
+      <img src="https://picsum.photos/600/400?random=3" alt="Mini Night Light">
+      <div class="info">
+        <h3 class="en">Mini Night Light</h3>
+        <h3 class="cn">迷你小夜灯</h3>
+        <div class="price">$14.99</div>
+        <button class="btn en">Buy Now</button>
+        <button class="btn cn">立即购买</button>
+      </div>
+    </div>
+
+    <!-- 商品4 -->
+    <div class="card">
+      <img src="https://picsum.photos/600/400?random=4" alt="Tarot Card Deck">
+      <div class="info">
+        <h3 class="en">Tarot Card Deck</h3>
+        <h3 class="cn">塔罗牌套装</h3>
+        <div class="price">$24.99</div>
+        <button class="btn en">Buy Now</button>
+        <button class="btn cn">立即购买</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="en">&copy; 2026 RiverBillowShop | All Rights Reserved</p>
+    <p class="cn">&copy; 2026 江浪代购 | 保留所有权利</p>
+  </footer>
+
+  <script>
+    // 语言切换功能
+    function switchLang(lang) {
+      // 切换body类名控制显示/隐藏
+      document.body.className = lang === 'en' ? 'show-en' : 'show-cn';
+      
+      // 更新按钮激活状态
+      document.querySelector('.en-btn').classList.remove('active');
+      document.querySelector('.cn-btn').classList.remove('active');
+      document.querySelector(`.${lang}-btn`).classList.add('active');
+      
+      // 更新html lang属性
+      document.documentElement.lang = lang;
+    }
+  </script>
+</body>
+</html>
