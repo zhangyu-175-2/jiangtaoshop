@@ -16,7 +16,6 @@ import {
 const routes = [
   {
     path: '/',
-    // component: () => import('../components/home'),
     children: [
       {
         path: '/',
