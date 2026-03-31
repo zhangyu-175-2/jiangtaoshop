@@ -3,8 +3,6 @@
     <div class="navbar-logo">
       <h2>JiangTaoShop</h2>
     </div>
-
-    <!-- 桌面端导航菜单 -->
     <el-menu
       class="navbar-menu"
       mode="horizontal"
