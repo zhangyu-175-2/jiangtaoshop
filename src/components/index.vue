@@ -7,8 +7,8 @@
       <p class="en">Simple & Secure Checkout</p>
       <p class="zh">简单安全的结算流程</p>
 
-      <p class="en">The website is under maintenance.</p>
-      <p class="zh">网站正在试运行维护中</p>
+      <h1 class="en">The website is under maintenance.</h1>
+      <h1 class="zh">网站正在试运行维护中</h1>
 
       <h2 class="en">
         This website is mainly designed to facilitate foreign buyers in purchasing Chinese goods and to offer purchasing agency services.
@@ -102,7 +102,7 @@
     <!-- 页脚区域 -->
     <footer>
       <p class="en">&copy; 2026 RiverBillowShop | All Rights Reserved</p>
-      <p class="zh">&copy; 2026 江浪代购 | 保留所有权利</p>
+      <p class="zh">&copy; 2026 江涛商城 | 保留所有权利</p>
     </footer>
   </div>
 </template>

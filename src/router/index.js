@@ -89,10 +89,6 @@ const routes = [
       //   component: () => import('../components/about'),
       // },
       // {
-      //   path: '/user',
-      //   name: 'user',
-      //   component: () => import('../components/user'),
-      // },
       // {
       //   path: '/oauth-callback',
       //   name: 'oauth-callback',
