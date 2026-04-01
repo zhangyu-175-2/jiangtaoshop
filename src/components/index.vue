@@ -99,12 +99,9 @@
       </div>
     </div>
 
-    <!-- 页脚区域 -->
-    <footer>
-      <p class="en">&copy; 2026 RiverBillowShop | All Rights Reserved</p>
-      <p class="zh">&copy; 2026 江涛商城 | 保留所有权利</p>
-    </footer>
+
   </div>
+ 
 </template>
 
 <script setup>

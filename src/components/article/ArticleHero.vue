@@ -164,8 +164,16 @@
       class="article-info-news"
       @click="emit('open-news')"
     >
-      <svg width="30" height="30" viewBox="0 0 1024 1024">
-        <path d="M0 0h1024v1024H0V0z" fill="#202425" opacity=".01"></path>
+      <svg
+        width="30"
+        height="30"
+        viewBox="0 0 1024 1024"
+      >
+        <path
+          d="M0 0h1024v1024H0V0z"
+          fill="#202425"
+          opacity=".01"
+        ></path>
         <path
           d="M989.866667 512c0 263.918933-213.947733 477.866667-477.866667 477.866667S34.133333 775.918933 34.133333 512 248.081067 34.133333 512 34.133333s477.866667 213.947733 477.866667 477.866667z"
           fill="#FF7744"
@@ -180,33 +188,28 @@
 </template>
 
 <script setup>
-defineProps({
-  article: {
-    type: Object,
-    required: true,
-  },
-  articleTitle: {
-    type: String,
-    default: '',
-  },
-  availableLanguageButtons: {
-    type: Array,
-    default: () => [],
-  },
-  currentLang: {
-    type: String,
-    default: 'zh',
-  },
-  canManageProgress: {
-    type: Boolean,
-    default: false,
-  },
-})
+  defineProps({
+    article: {
+      type: Object,
+      required: true,
+    },
+    articleTitle: {
+      type: String,
+      default: '',
+    },
+    availableLanguageButtons: {
+      type: Array,
+      default: () => [],
+    },
+    currentLang: {
+      type: String,
+      default: 'en',
+    },
+    canManageProgress: {
+      type: Boolean,
+      default: false,
+    },
+  })
 
-const emit = defineEmits([
-  'switch-language',
-  'language-mousedown',
-  'language-touchstart',
-  'open-news',
-])
+  const emit = defineEmits(['switch-language', 'language-mousedown', 'language-touchstart', 'open-news'])
 </script>

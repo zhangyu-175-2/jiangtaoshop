@@ -1,7 +1,8 @@
 <template>
   <el-header class="navbar-container">
     <div class="navbar-logo">
-      <h2>JiangTaoShop</h2>
+      <!-- 1. Logo 双语切换 -->
+      <h2>{{ lang === 'zh' ? '江涛商城' : 'RiverBillowShop' }}</h2>
     </div>
     <el-menu
       class="navbar-menu"
@@ -11,30 +12,35 @@
     >
       <el-menu-item index="/home">
         <el-icon><House /></el-icon>
-        <span>首页</span>
+        <!-- 2. 首页 双语 -->
+        <span>{{ lang === 'zh' ? '首页' : 'Home' }}</span>
       </el-menu-item>
       <el-menu-item index="/product">
         <el-icon><ShoppingCart /></el-icon>
-        <span>产品中心</span>
+        <!-- 3. 产品中心 双语 -->
+        <span>{{ lang === 'zh' ? '产品中心' : 'Product Center' }}</span>
       </el-menu-item>
       <!-- 下拉菜单 -->
       <el-sub-menu index="/service">
         <template #title>
           <el-icon><Service /></el-icon>
-          <span>服务支持</span>
+          <!-- 4. 服务支持 双语 -->
+          <span>{{ lang === 'zh' ? '服务支持' : 'Service Support' }}</span>
         </template>
-        <el-menu-item index="/service/faq">常见问题</el-menu-item>
-        <el-menu-item index="/service/contact">联系我们</el-menu-item>
+        <!-- 5. 下拉项 双语 -->
+        <el-menu-item index="/service/faq">{{ lang === 'zh' ? '常见问题' : 'FAQ' }}</el-menu-item>
+        <el-menu-item index="/service/contact">{{ lang === 'zh' ? '联系我们' : 'Contact Us' }}</el-menu-item>
       </el-sub-menu>
       <el-menu-item index="/about">
-        <el-icon><House /></el-icon>
-        <span>关于我们</span>
+        <el-icon><User /></el-icon>
+        <!-- 6. 关于我们 双语 -->
+        <span>{{ lang === 'zh' ? '关于我们' : 'About Us' }}</span>
       </el-menu-item>
     </el-menu>
 
     <!-- 右侧操作区 -->
     <div class="navbar-actions">
-      <!-- 语言切换按钮 - 增加统一类名 lang-switch-btn -->
+      <!-- 语言切换按钮 - 保持原有逻辑 -->
       <el-button
         class="lang-switch-btn"
         type="primary"
@@ -68,27 +74,32 @@
       >
         <el-menu-item index="/home">
           <el-icon><House /></el-icon>
-          <span>首页</span>
+          <!-- 移动端 首页 双语 -->
+          <span>{{ lang === 'zh' ? '首页' : 'Home' }}</span>
         </el-menu-item>
         <el-menu-item index="/product">
           <el-icon><ShoppingCart /></el-icon>
-          <span>产品中心</span>
+          <!-- 移动端 产品中心 双语 -->
+          <span>{{ lang === 'zh' ? '产品中心' : 'Product Center' }}</span>
         </el-menu-item>
         <el-sub-menu index="/service">
           <template #title>
             <el-icon><Service /></el-icon>
-            <span>服务支持</span>
+            <!-- 移动端 服务支持 双语 -->
+            <span>{{ lang === 'zh' ? '服务支持' : 'Service Support' }}</span>
           </template>
-          <el-menu-item index="/service/faq">常见问题</el-menu-item>
-          <el-menu-item index="/service/contact">联系我们</el-menu-item>
+          <!-- 移动端 下拉项 双语 -->
+          <el-menu-item index="/service/faq">{{ lang === 'zh' ? '常见问题' : 'FAQ' }}</el-menu-item>
+          <el-menu-item index="/service/contact">{{ lang === 'zh' ? '联系我们' : 'Contact Us' }}</el-menu-item>
         </el-sub-menu>
         <el-menu-item index="/about">
           <el-icon><User /></el-icon>
-          <span>关于我们</span>
+          <!-- 移动端 关于我们 双语 -->
+          <span>{{ lang === 'zh' ? '关于我们' : 'About Us' }}</span>
         </el-menu-item>
 
         <el-menu-item index="">
-          <!-- 移动端语言切换按钮 - 复用统一类名 -->
+          <!-- 移动端语言切换按钮 -->
           <el-button
             class="lang-switch-btn"
             type="primary"
@@ -105,29 +116,22 @@
 </template>
 
 <script setup>
-  import { ref, onMounted, defineProps, defineEmits } from 'vue'
-  // 导入Element Plus图标（补充导入Basketball和缺失的图标）
-  import {
-    House,
-    Service,
-    Menu as MenuIcon,
-    Basketball, // 新增：导入Basketball图标
-    ShoppingCart, // 补充：原代码使用但未导入的图标
-    User, // 补充：原代码使用但未导入的图标
-  } from '@element-plus/icons-vue'
+  import { ref, onMounted, defineProps, defineEmits, watch } from 'vue'
+  // 导入Element Plus图标
+  import { House, Service, Menu as MenuIcon, Basketball, ShoppingCart, User } from '@element-plus/icons-vue'
 
-  // 1. 接收父组件传递的lang
+  // 接收父组件传递的lang
   const props = defineProps({
     lang: {
       type: String,
-      default: 'zh',
+      default: 'en',
     },
   })
 
-  // 2. 定义要派发的事件（与父组件监听的toggle-lang对应）
+  // 定义要派发的事件
   const emit = defineEmits(['toggle-lang'])
 
-  // 3. 点击语言按钮时，派发事件触发父组件的toggleLang
+  // 点击语言按钮时，派发事件触发父组件的toggleLang
   const toggleLang = () => {
     emit('toggle-lang')
   }
@@ -158,16 +162,6 @@
     activePath.value = index
     showMobileMenu.value = false
     console.log('移动端选中菜单：', index)
-  }
-
-  // 登录/注册按钮事件
-  const handleLogin = () => {
-    console.log('点击登录')
-    // router.push('/login')
-  }
-  const handleRegister = () => {
-    console.log('点击注册')
-    // router.push('/register')
   }
 </script>
 
