@@ -110,20 +110,20 @@ const routes = [
       // },
     ],
   },
-  {
-    path: '/verify',
-    redirect: (to) => {
-      const redirect = to.query.redirect
-      const query = { fromVerify: 'true' }
-      if (redirect) {
-        query.redirect = redirect
-      }
-      return {
-        path: '/user',
-        query: query,
-      }
-    },
-  },
+  // {
+  //   path: '/verify',
+  //   redirect: (to) => {
+  //     const redirect = to.query.redirect
+  //     const query = { fromVerify: 'true' }
+  //     if (redirect) {
+  //       query.redirect = redirect
+  //     }
+  //     return {
+  //       path: '/user',
+  //       query: query,
+  //     }
+  //   },
+  // },
   // {
   //   path: '/im',
   //   name: 'im',
@@ -162,176 +162,162 @@ router.beforeEach(async (to, from, next) => {
     return
   }
 
-  const publicPaths = [
-    '/user',
-    '/verify',
-    '/403',
-    '/404',
-    '/',
-    '/about',
-    '/privacy',
-    '/payment-return',
-  ]
-  const isPublicPath =
-    publicPaths.includes(to.path) ||
-    to.path.startsWith('/article/') ||
-    to.path.startsWith('/sort/')
+  // const publicPaths = [
+  //   '/user',
+  //   '/verify',
+  //   '/403',
+  //   '/404',
+  //   '/',
+  //   '/about',
+  //   '/privacy',
+  //   '/payment-return',
+  // ]
+  // const isPublicPath =
+  //   publicPaths.includes(to.path) ||
+  //   to.path.startsWith('/article/') ||
+  //   to.path.startsWith('/sort/')
 
-  // 处理OAuth临时授权码
-  if (to.query.code && to.path === '/') {
-    await handleOAuthAuthCode(to, from, next)
-    return
-  }
+  // // 处理OAuth临时授权码
+  // if (to.query.code && to.path === '/') {
+  //   await handleOAuthAuthCode(to, from, next)
+  //   return
+  // }
 
-  if (
-    !hasStoredSessionToken() &&
-    (localStorage.getItem('currentUser') || localStorage.getItem('currentAdmin'))
-  ) {
-    clearAuthState()
-  }
+  // if (
+  //   !hasStoredSessionToken() &&
+  //   (localStorage.getItem('currentUser') || localStorage.getItem('currentAdmin'))
+  // ) {
+  //   clearAuthState()
+  // }
 
-  if (hasStoredSessionToken()) {
-    const sessionValid = await ensureSessionValid({
-      force: false,
-      source: from.name ? 'route' : 'boot',
-      currentPath: to.fullPath,
-      preferAdmin: to.matched.some((record) => record.meta.isAdmin),
-    })
+  // if (hasStoredSessionToken()) {
+  //   const sessionValid = await ensureSessionValid({
+  //     force: false,
+  //     source: from.name ? 'route' : 'boot',
+  //     currentPath: to.fullPath,
+  //     preferAdmin: to.matched.some((record) => record.meta.isAdmin),
+  //   })
 
-    if (!sessionValid) {
-      return
-    }
-  }
+  //   if (!sessionValid) {
+  //     return
+  //   }
+  // }
 
-  if (!isPublicPath) {
-    const needsAdminAuth = to.matched.some((record) => record.meta.isAdmin)
+  // if (!isPublicPath) {
+  //   const needsAdminAuth = to.matched.some((record) => record.meta.isAdmin)
 
-    if (needsAdminAuth) {
-      const adminToken = getValidToken(true)
-      const isAdminLoggedIn = isLoggedIn(true)
+  //   if (needsAdminAuth) {
+  //     const adminToken = getValidToken(true)
+  //     const isAdminLoggedIn = isLoggedIn(true)
 
-      if (!adminToken || !isAdminLoggedIn) {
-        handleTokenExpire(true, to.fullPath, { showMessage: false })
-        return
-      }
-    } else {
-      const needsAuth = to.matched.some((record) => record.meta.requireAuth)
+  //     if (!adminToken || !isAdminLoggedIn) {
+  //       handleTokenExpire(true, to.fullPath, { showMessage: false })
+  //       return
+  //     }
+  //   } else {
+  //     const needsAuth = to.matched.some((record) => record.meta.requireAuth)
 
-      if (needsAuth) {
-        const userToken = getValidToken(false)
-        const isUserLoggedIn = isLoggedIn(false)
+  //     if (needsAuth) {
+  //       const userToken = getValidToken(false)
+  //       const isUserLoggedIn = isLoggedIn(false)
 
-        if (!userToken || !isUserLoggedIn) {
-          handleTokenExpire(false, to.fullPath, { showMessage: false })
-          return
-        }
-      }
-    }
-  }
-
+  //       if (!userToken || !isUserLoggedIn) {
+  //         handleTokenExpire(false, to.fullPath, { showMessage: false })
+  //         return
+  //       }
+  //     }
+  //   }
+  // }
+  document.title = 'RiverBillowShop'
   next()
 })
 
-// ===== 页面访问量统计 =====
-router.afterEach((to, from) => {
-  // 404/403 不统计
-  if (to.name === 'notFound' || to.name === 'forbidden' || to.name === 'catchAll') return
-  // 同一页面不重复统计
-  if (from.name && to.fullPath === from.fullPath) return
 
-  try {
-    // const url = constant.baseURL + '/track/pageview?path=' + encodeURIComponent(to.fullPath)
-    // // 使用 fetch + keepalive + credentials 代替 sendBeacon，cookie会自动携带用户身份
-    // fetch(url, { method: 'POST', keepalive: true, credentials: 'include' }).catch(() => { })
-  } catch (e) {
-    // 统计失败不影响用户
-  }
-})
 
 /**
  * 处理OAuth临时授权码
  * 使用一次性授权码换取真正的token
  */
-async function handleOAuthAuthCode(to, from, next) {
-  const authCode = to.query.code
-  const baseURL = constant.baseURL
+// async function handleOAuthAuthCode(to, from, next) {
+//   const authCode = to.query.code
+//   const baseURL = constant.baseURL
 
-  try {
-    // 调用后端接口，用授权码换取token
-    const response = await fetch(baseURL + '/oauth/exchange', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: 'code=' + encodeURIComponent(authCode),
-    })
+//   try {
+//     // 调用后端接口，用授权码换取token
+//     const response = await fetch(baseURL + '/oauth/exchange', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded',
+//       },
+//       body: 'code=' + encodeURIComponent(authCode),
+//     })
 
-    if (response.ok) {
-      const result = await response.json()
-      if (result && result.code === 200) {
-        const data = result.data
-        const accessToken = data.accessToken
-        const redirectPath = data.redirectPath || sessionStorage.getItem('oauthRedirectPath') || '/'
-        const emailCollectionNeeded = data.emailCollectionNeeded
+//     if (response.ok) {
+//       const result = await response.json()
+//       if (result && result.code === 200) {
+//         const data = result.data
+//         const accessToken = data.accessToken
+//         const redirectPath = data.redirectPath || sessionStorage.getItem('oauthRedirectPath') || '/'
+//         const emailCollectionNeeded = data.emailCollectionNeeded
 
-        if (emailCollectionNeeded) {
-          const tempUserData = {
-            needsEmailCollection: true,
-          }
+//         if (emailCollectionNeeded) {
+//           const tempUserData = {
+//             needsEmailCollection: true,
+//           }
 
-          // Token由后端通过HttpOnly Cookie下发
-          localStorage.setItem('tempUserData', JSON.stringify(tempUserData))
+//           // Token由后端通过HttpOnly Cookie下发
+//           localStorage.setItem('tempUserData', JSON.stringify(tempUserData))
 
-          next({
-            path: redirectPath,
-            query: { showEmailCollection: 'true' },
-            replace: true,
-          })
-          return
-        }
+//           next({
+//             path: redirectPath,
+//             query: { showEmailCollection: 'true' },
+//             replace: true,
+//           })
+//           return
+//         }
 
-        // 正常登录流程 - Token由后端通过HttpOnly Cookie下发
-        localStorage.removeItem('currentAdmin')
-        localStorage.removeItem('currentUser')
+//         // 正常登录流程 - Token由后端通过HttpOnly Cookie下发
+//         localStorage.removeItem('currentAdmin')
+//         localStorage.removeItem('currentUser')
 
-        // 验证会话获取用户信息
-        const tokenResponse = await fetch(baseURL + '/user/token', {
-          method: 'POST',
-          credentials: 'include',
-        })
+//         // 验证会话获取用户信息
+//         const tokenResponse = await fetch(baseURL + '/user/token', {
+//           method: 'POST',
+//           credentials: 'include',
+//         })
 
-        if (tokenResponse.ok) {
-          const tokenResult = await tokenResponse.json()
-          if (tokenResult && tokenResult.code === 200) {
-            const mainStore = useMainStore()
-            mainStore.loadCurrentUser(tokenResult.data)
-            mainStore.loadCurrentAdmin(tokenResult.data)
-          }
-        }
+//         if (tokenResponse.ok) {
+//           const tokenResult = await tokenResponse.json()
+//           if (tokenResult && tokenResult.code === 200) {
+//             const mainStore = useMainStore()
+//             mainStore.loadCurrentUser(tokenResult.data)
+//             mainStore.loadCurrentAdmin(tokenResult.data)
+//           }
+//         }
 
-        // 清理sessionStorage中的临时数据
-        sessionStorage.removeItem('oauthRedirectPath')
+//         // 清理sessionStorage中的临时数据
+//         sessionStorage.removeItem('oauthRedirectPath')
 
-        next({
-          path: redirectPath,
-          replace: true,
-        })
-        return
-      } else {
-        console.error('OAuth授权码交换失败:', result)
-        next({ path: '/', query: {}, replace: true })
-        return
-      }
-    } else {
-      console.error('OAuth授权码交换HTTP错误:', response.status)
-      next({ path: '/', query: {}, replace: true })
-      return
-    }
-  } catch (error) {
-    console.error('OAuth授权码交换异常:', error)
-    next({ path: '/', query: {}, replace: true })
-    return
-  }
-}
+//         next({
+//           path: redirectPath,
+//           replace: true,
+//         })
+//         return
+//       } else {
+//         console.error('OAuth授权码交换失败:', result)
+//         next({ path: '/', query: {}, replace: true })
+//         return
+//       }
+//     } else {
+//       console.error('OAuth授权码交换HTTP错误:', response.status)
+//       next({ path: '/', query: {}, replace: true })
+//       return
+//     }
+//   } catch (error) {
+//     console.error('OAuth授权码交换异常:', error)
+//     next({ path: '/', query: {}, replace: true })
+//     return
+//   }
+// }
 
 export default router
