@@ -24,7 +24,7 @@
         <div class="contact-item">
           <span class="en">Email:</span>
           <span class="zh">邮箱:</span>
-          <span>XXX</span>
+          <span>kenttiktok1@outlook.com</span>
         </div>
         <div class="contact-item">
           <span class="en">WhatsApp:</span>
