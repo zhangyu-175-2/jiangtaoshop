@@ -29,7 +29,7 @@ export const dataUrlNav = {
       "id": "often",
       "title": "⭐常用",
       "cards": [
-        { "icon": "/image/touxiang.png", "title": "RiverBillowBlog", "desc": "RiverBillowBlog博客", "url": "/jiangtao/#/" },
+        { "icon": "/image/logobig.png", "title": "RiverBillowBlog", "desc": "RiverBillowBlog博客", "url": "/jiangtao/#/" },
         {
           "icon": "/image/daohang/github.jpg",
           "title": "jiangtao",
