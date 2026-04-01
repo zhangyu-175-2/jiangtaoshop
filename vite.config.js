@@ -349,5 +349,5 @@ export default defineConfig({
       'axios'
     ]
   },
-  base: '/JiangTaoShop/',
+  base: '/jiangtaoshop/',
 })

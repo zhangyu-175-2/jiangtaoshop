@@ -149,7 +149,7 @@ const routes = [
 
 const router = createRouter({
   // history: createWebHistory(),
-  history: createWebHashHistory("/JiangTaoShop/"),
+  history: createWebHashHistory("/jiangtaoshop/"),
   routes: routes,
   scrollBehavior(to, from, savedPosition) {
     return { left: 0, top: 0 }
